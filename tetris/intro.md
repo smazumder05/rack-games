@@ -27,3 +27,5 @@ The [contract system](https://docs.racket-lang.org/reference/contracts.html) gua
    while valid-block? will verify that a tetris block definition actually conforms to our 
    conventions:
   ```
+- 2. Assign colors to each block
+- Add another line

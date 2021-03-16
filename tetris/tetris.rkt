@@ -94,5 +94,28 @@
           (rectangle square-size square-size))))
   (apply hc-append items))
 
-(block->pict Z-Block)
+;This function rotates a block clock wise, each column of characters from left to right will become a row from top to bottom.
+;The rotate-clockwise function works by constructing a list of strings (the rows for the new block), where each string has
+;an element from each of the original block’s rows.
+
+(define/contract (rotate-clockwise block)
+  (-> valid-block? valid-block?)
+  (for/list ([a (in-string (first block))]
+             [b (in-string (second block))]
+             [c (in-string (third block))]
+             [d (in-string (fourth block))])
+    (string d c b a)))
+
+; helper function to test clockwise rotation of all blocks
+(define/contract (all-rotations block)
+  (-> valid-block? (listof valid-block?))
+  (reverse
+   (for/fold ([rotations (list block)])
+             ([n (in-range 4)])
+     (cons (rotate-clockwise (car rotations)) rotations))))
+
+;; test code
+;(block->pict L-Block)
 (map block->pict all-blocks)
+;(block->pict (rotate-clockwise L-Block))
+(map block->pict (all-rotations L-Block))

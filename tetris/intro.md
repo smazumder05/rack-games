@@ -28,4 +28,6 @@ The [contract system](https://docs.racket-lang.org/reference/contracts.html) gua
    conventions:
   ```
 - 2. Assign colors to each block
-- Add another line
+    Use ```pict package ```for graphics. Create a function that takes a block and creates a pict out of it. 
+    The signature of the function is as follows
+    ``` (define/contract (block->pict block))```

@@ -27,7 +27,8 @@ The [contract system](https://docs.racket-lang.org/reference/contracts.html) gua
    while valid-block? will verify that a tetris block definition actually conforms to our 
    conventions:
   ```
-- 2. Assign colors to each block
+### Step 2 - draw blocks and add a color to each block
     Use ```pict package ```for graphics. Create a function that takes a block and creates a pict out of it. 
     The signature of the function is as follows
     ``` (define/contract (block->pict block))```
+    The graphics representation prints out the tetris block using the entire 4x4 grid. This is not desirable in the final game, but it is useful while developing       ihe application, as we can see how each piece aligns with the rest. Once the application is ready, these grid lines can be removed by using the ghost pict constructor on the rectangle one

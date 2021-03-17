@@ -1,5 +1,8 @@
 # Tetris
 
+## Screenshot
+![](images/tetris-game.gif)
+
 ```racket
 #lang racket/gui
 (require pict racket/draw racket/contract)

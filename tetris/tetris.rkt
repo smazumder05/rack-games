@@ -106,6 +106,20 @@
              [d (in-string (fourth block))])
     (string d c b a)))
 
+;;Rotating counter clockwise could also be done using string and list manipulation, so we use the rotate-clockwisefunction
+;; to rotate clockwise, which we now know it works as expected, we can define counter clockwise rotation simply as rotating a block clockwise 3 times.
+(define/contract (rotate-clockwise* block times)
+  (-> valid-block? exact-nonnegative-integer? valid-block?)
+  (if ( > times 0)
+        (let ([rotated (rotate-clockwise block)])
+              (rotate-clockwise* rotated (sub1 times)))
+          block))
+
+;;Now rotate counterclockwise by calling the above function 3 times
+(define/contract (rotate-counter-clockwise block)
+  (-> valid-block? valid-block?)
+  (rotate-clockwise* block 3))
+
 ; helper function to test clockwise rotation of all blocks
 (define/contract (all-rotations block)
   (-> valid-block? (listof valid-block?))
@@ -114,8 +128,13 @@
              ([n (in-range 4)])
      (cons (rotate-clockwise (car rotations)) rotations))))
 
+
 ;; test code
-;(block->pict L-Block)
-(map block->pict all-blocks)
-;(block->pict (rotate-clockwise L-Block))
-(map block->pict (all-rotations L-Block))
+(module+ test
+  (for ([block (in-list all-blocks)])
+    (check-equal? (rotate-clockwise* block 4) block)
+    (check-equal? (rotate-clockwise (rotate-counter-clockwise block)) block)))
+(block->pict L-Block)
+;(map block->pict all-blocks)
+(block->pict (rotate-counter-clockwise L-Block))
+;(map block->pict (all-rotations L-Block))
